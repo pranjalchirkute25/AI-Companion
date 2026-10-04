@@ -9,6 +9,7 @@ from unittest.mock import MagicMock, patch
 from fastapi.testclient import TestClient
 
 from app.schemas.request_schemas import IntakeRequest
+from app.schemas.response_schemas import BlindSpotAnalysisResponse
 from app.services.cache_service import CacheService
 from app.services.gemini_service import GeminiService
 from app.services.session_service import SessionService
@@ -71,6 +72,20 @@ class TestGeminiServiceInternals:
         service = GeminiService(api_key="")
         client = service._get_client()
         assert client is None
+
+    def test_gemini_service_passes_response_schema_to_sdk(self):
+        service = GeminiService(api_key="test_key", model_name="gemini-2.5-flash")
+        client = MagicMock()
+
+        service._sync_generate(
+            client,
+            system_instruction="system",
+            prompt="prompt",
+            response_schema=BlindSpotAnalysisResponse,
+        )
+
+        config = client.models.generate_content.call_args.kwargs["config"]
+        assert config.response_schema is BlindSpotAnalysisResponse
 
     async def test_gemini_service_retry_and_timeout(self):
         service = GeminiService(api_key="test_key", model_name="gemini-2.5-flash")

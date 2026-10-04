@@ -261,6 +261,7 @@ class GeminiService:
                         client,
                         system_instruction,
                         prompt,
+                        response_schema,
                     ),
                     timeout=self.timeout,
                 )
@@ -282,6 +283,7 @@ class GeminiService:
         client: Any,
         system_instruction: str,
         prompt: str,
+        response_schema: Any,
     ) -> str:
         """Synchronous wrapper for google.genai generation."""
         from google.genai import types
@@ -289,6 +291,7 @@ class GeminiService:
         config = types.GenerateContentConfig(
             system_instruction=system_instruction,
             response_mime_type="application/json",
+            response_schema=response_schema,
             temperature=0.7,
         )
 

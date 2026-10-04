@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ef">
+  <meta name="description" content="A calm decision workspace that helps you see what your thinking might be missing.">
+  <title>Blind Spot — See what your thinking might be missing</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="/static/js/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to workspace</a>
+  <header class="topbar">
+    <a class="wordmark" href="/" aria-label="Blind Spot home"><span class="mark" aria-hidden="true">◉</span><span>blind spot</span></a>
+    <p class="top-note">A thinking partner. The decision stays yours.</p>
+    <button class="quiet-button" id="new-decision" type="button">＋ <span>New reflection</span></button>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy"><p class="eyebrow"><span class="eyebrow-dot"></span> DECISION WORKSPACE <span class="hero-index">01 — 04</span></p>
+        <h1 id="hero-title">See what your<br><em>thinking might be missing.</em></h1>
+        <p class="hero-deck">Slow the decision down just enough to notice your assumptions, the evidence you need, and who else might feel the effects.</p>
+      </div>
+      <div class="principle-card"><span class="principle-icon" aria-hidden="true">✳</span><div><strong>Clarity, without a verdict.</strong><p>Blind Spot helps you examine your reasoning. It will never choose for you.</p></div></div>
+    </section>
+    <div class="workspace-grid">
+      <section class="canvas panel" aria-labelledby="canvas-title">
+        <div class="panel-heading"><div><p class="eyebrow">START WITH THE DECISION</p><h2 id="canvas-title">Decision canvas</h2></div><span class="step-chip">01 <span>DEFINE</span></span></div>
+        <form id="decision-form">
+          <label class="field-label" for="decision-description">What are you deciding?<span class="required">*</span></label>
+          <textarea id="decision-description" name="decision_description" required minlength="10" maxlength="5000" rows="4" placeholder="I’m deciding whether to accept a role at a smaller company or stay where I am…"></textarea>
+          <div class="field-row"><label class="field-label" for="drawing-factors">What matters most to you?<span class="required">*</span></label><span class="field-hint">A few words is enough</span></div>
+          <textarea id="drawing-factors" name="drawing_factors" required minlength="3" maxlength="2000" rows="2" placeholder="Growth, stability, time with family…"></textarea>
+          <details class="optional-fields"><summary>Give the decision a little more context <span>Optional</span></summary>
+            <label class="field-label" for="options-considered">Options you’re considering</label><input id="options-considered" maxlength="2000" placeholder="Stay, switch, negotiate, or wait…">
+            <label class="field-label" for="deadline-stakes">Constraints, goals, or deadline</label><input id="deadline-stakes" maxlength="1000" placeholder="A response is due next Friday; cannot relocate…">
+          </details>
+          <p class="form-error" id="form-error" role="alert" hidden></p>
+          <button class="primary-button" id="analyze-button" type="submit"><span>Map my thinking</span><span aria-hidden="true">↗</span></button>
+          <button class="example-button" id="example-button" type="button">Try a sample decision <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="privacy-note"><span aria-hidden="true">⌁</span> Your session stays in memory and expires. Avoid sharing highly sensitive details.</p>
+      </section>
+      <aside class="side-column" aria-label="How the workspace works">
+        <section class="flow-card panel"><p class="eyebrow">A BETTER QUESTION, ONE AT A TIME</p><ol class="flow-list"><li class="flow-active"><span class="flow-num">01</span><span><strong>Map the decision</strong><small>What’s in view right now</small></span><i>●</i></li><li><span class="flow-num">02</span><span><strong>Find the gaps</strong><small>Evidence, risks, other people</small></span><i>○</i></li><li><span class="flow-num">03</span><span><strong>Explore a question</strong><small>Follow the thread that matters</small></span><i>○</i></li><li><span class="flow-num">04</span><span><strong>Reflect & decide</strong><small>Your brief, in your words</small></span><i>○</i></li></ol></section>
+        <section class="note-card"><span class="note-mark" aria-hidden="true">“</span><p>Good decisions don’t come from having every answer. They come from knowing which questions still matter.</p><span class="note-caption">THE BLIND SPOT PRINCIPLE</span></section>
+      </aside>
+    </div>
+    <div id="loading" class="loading panel" role="status" aria-live="polite" hidden><span class="loader" aria-hidden="true"></span><div><strong>Looking for what’s outside the frame</strong><p>Separating what you said from what might be assumed…</p></div></div>
+    <section id="results" class="results" hidden aria-live="polite">
+      <div class="result-intro"><p class="eyebrow">YOUR DECISION, MAPPED <span id="session-label"></span></p><h2 id="result-decision">A clearer view starts here.</h2><p>These are prompts for examination, not conclusions. Treat every inference as something to check.</p><p id="analysis-notice" class="analysis-notice" hidden></p></div>
+      <div class="analysis-grid">
+        <section class="panel radar-panel" aria-labelledby="radar-title"><div class="panel-heading"><div><p class="eyebrow">WHERE TO LOOK NEXT</p><h2 id="radar-title">Blind Spot Radar</h2></div><span class="live-tag"><span></span> FROM YOUR INPUT</span></div><div id="radar" class="radar-list"></div><p class="radar-legend">States describe how much has been explored so far, not a score of your decision.</p></section>
+        <section class="panel emphasis-panel"><p class="eyebrow">IN YOUR FRAME</p><h2>What you’re weighing</h2><div id="emphasized" class="tag-list"></div></section>
+      </div>
+      <section class="panel section-panel"><div class="panel-heading"><div><p class="eyebrow">POSSIBLE GAPS</p><h2>Worth a closer look</h2></div><span class="step-chip">02 <span>EXAMINE</span></span></div><div id="blindspots" class="card-grid"></div></section>
+      <div class="analysis-grid">
+        <section class="panel section-panel"><p class="eyebrow">HYPOTHESES, NOT FACTS</p><h2>Assumptions to test</h2><div id="assumptions" class="stack-list"></div></section>
+        <section class="panel section-panel"><p class="eyebrow">ANOTHER ANGLE</p><h2>Consider the counter-case</h2><blockquote id="perspective"></blockquote></section>
+      </div>
+      <section class="panel section-panel"><div class="panel-heading"><div><p class="eyebrow">FOLLOW THE THREAD</p><h2>One question to start</h2><p class="subcopy">Choose the question that feels most useful. After you answer, we’ll use it to find the next thread.</p></div><span class="step-chip">03 <span>EXPLORE</span></span></div><div id="current-question" class="question-card"></div><form id="answer-form"><label class="field-label" for="answer">What comes to mind?</label><textarea id="answer" rows="3" maxlength="3000" required placeholder="There’s no right answer. Share what you know, or what you’re unsure about."></textarea><p id="answer-error" class="form-error" role="alert" hidden></p><button class="primary-button" type="submit">Explore this thought <span aria-hidden="true">↗</span></button></form><div id="reflection" class="reflection-list"></div></section>
+      <section class="panel brief-panel" id="brief"><div class="panel-heading"><div><p class="eyebrow">YOUR THINKING, IN YOUR WORDS</p><h2>Decision brief</h2><p class="subcopy">A working summary to help you see what is known, open, and still yours to decide.</p></div><span class="step-chip">04 <span>REFLECT</span></span></div><div id="brief-content" class="brief-content"></div><div class="reflection-prompt"><h3>Did your thinking change?</h3><div class="reflection-choices" role="group" aria-label="Did your thinking change?"><button type="button" data-reflection="Yes, significantly">Yes, significantly</button><button type="button" data-reflection="A little">A little</button><button type="button" data-reflection="Not really">Not really</button><button type="button" data-reflection="I discovered something new">I discovered something new</button></div><label class="field-label" for="reflection-note">What changed in your thinking?</label><textarea id="reflection-note" rows="2" maxlength="1500" placeholder="Capture the shift, or what you still want to find out…"></textarea><p class="you-decide">YOU DECIDE <span>Clarity belongs to you.</span></p></div></section>
+      <button class="back-button" id="back-to-canvas" type="button">↑ Back to your decision</button>
+    </section>
+  </main>
+  <footer><span>blind spot <span class="footer-dot">·</span> See what your thinking might be missing.</span><span>AI can help you notice. It doesn’t get the final word.</span></footer>
+</body>
+</html>

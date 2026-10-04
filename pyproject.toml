@@ -1,0 +1,36 @@
+[project]
+name = "the-blind-spot"
+version = "1.0.0"
+description = "A calm AI powered decision workspace that helps people examine their reasoning."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "pydantic>=2.9.0",
+    "pydantic-settings>=2.6.0",
+    "google-genai>=1.0.0",
+    "slowapi>=0.1.9",
+    "python-dotenv>=1.0.1",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "PIE", "RUF"]
+ignore = [
+    "E501",    # Line length in prompt templates and test strings
+    "B008",    # FastAPI Depends() in endpoint signatures is standard practice
+    "BLE001",  # Defensive top-level exception handlers
+    "RUF012",  # Mutable class attributes in Pydantic BaseSettings
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+python_files = "test_*.py"
